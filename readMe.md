@@ -258,3 +258,44 @@
         expect(foo).to.be.equal(true);
       })
     })
+
+# 测试用例管理
+  大型项目有很多测试用例。有时，我们希望只运行其中的几个，这时可以用 only 方法。describe 块和 it 块都允许调用 only 方法，表示只运行某个测试套件或测试用例。 <br>
+  进入 demo7 子目录，测试脚本 test/add.test.js 就使用了 only
+    it.only('1 加 1 应该等于 2', function(){
+        expect(add(1, 1)).to.be.equal(2)
+    })
+
+    it.('任何数加0应该等于自身', function(){
+      expect(add(1, 0)).to.be.equal(1)
+    })
+
+  上面代码中，只有带有 only 方法的测试用例会运行。
+
+    $ mocha test/add.test.js
+
+  此外， 还有skip 方法，表示跳过指定的测试套件或测试用例。
+    it.skip('任何数加0应该等于自身', function(){
+      expect(add(1, 0)).to.be.equal(1)
+    })
+
+  上面代码的这个测试用例不会执行。
+
+# 浏览器测试
+  除了在命令行运行，Mocha 还可以在浏览器运行。<br>
+
+  首先，使用 mocha init 命令在指定目录生成初始化文件。
+    $ mocha init demo8
+
+  运行上面命令，就会在 demo8 目录下生成 index.html 文件，以及配套的脚本和样式表。
+
+# 生成规格文件
+  Mocha 支持从测试用例生成规格文件 <br>
+
+  进入demo9 子目录，运行下面的命令
+    $ mocha --recursive -R markdown > spec.md
+
+  上面命令根据 test 目录的所有测试脚本，生成一个规格文件 spec.md。-R markdown 参数指定规格报告是 markdown 格式。<br>
+
+  如果想生成 HTML 格式的报告 spec.html，使用下面的命令
+    $ mocha --recursive -R doc > spec.html
